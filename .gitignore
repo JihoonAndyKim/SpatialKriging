@@ -1,3 +1,6 @@
 *.Rproj
 data/
 .Rproj.user/
+.Rproj.user
+.Rdata
+.Rhistory
