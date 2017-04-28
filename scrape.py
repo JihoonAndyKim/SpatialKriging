@@ -15,7 +15,7 @@ SERVICE += "data=all&tz=Etc/UTC&format=comma&latlon=yes&"
 SERVICE += startts.strftime('year1=%Y&month1=%m&day1=%d&')
 SERVICE += endts.strftime('year2=%Y&month2=%m&day2=%d&')
 
-states = """AK AL AR AZ CA CO CT DE FL GA HI IA ID IL IN KS KY LA MA MD ME
+states = """AL AR AZ CA CO CT DE FL GA IA ID IL IN KS KY LA MA MD ME
  MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT
  WA WI WV WY"""
 # IEM quirk to have Iowa AWOS sites in its own labeled network
@@ -24,7 +24,7 @@ for state in states.split():
     networks.append("%s_ASOS" % (state,))
 
 for network in networks:
-    # Get metadata 
+    # Get metadata
     uri = ("https://mesonet.agron.iastate.edu/"
            "geojson/network/%s.geojson") % (network,)
     data = urllib2.urlopen(uri)
@@ -32,7 +32,7 @@ for network in networks:
     count = 0
     for site in jdict['features']:
         count = count + 1
-        if count >= 5:
+        if count >= 15:
             continue
         faaid = site['properties']['sid']
         sitename = site['properties']['sname']
@@ -41,6 +41,6 @@ for network in networks:
         data = urllib2.urlopen(uri)
         outfn = '%s_%s_%s.txt' % (faaid, startts.strftime("%Y%m%d%H%M"),
                                   endts.strftime("%Y%m%d%H%M"))
-        out = open(outfn, 'w')
+        out = open('obs/' + outfn, 'w')
         out.write(data.read())
         out.close()
