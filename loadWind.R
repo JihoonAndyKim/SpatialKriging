@@ -164,3 +164,4 @@ US(add=TRUE)
 quilt.plot(obs.new.loc, obs.pred, nx = resolution, ny = resolution)
 US(add=TRUE)
 
+
